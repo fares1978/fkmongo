@@ -101,6 +101,38 @@ go test ./...                                                      # unit tests 
 FKMONGO_TEST_URI='mongodb://localhost:27017/?directConnection=true' go test ./...
 ```
 
+## Releasing a new version
+
+1. Commit the changes and run the tests.
+
+2. Pick the next version ([semver](https://semver.org); while on `v0`):
+
+   | Change | Bump | Example |
+   |---|---|---|
+   | Bug fix, docs, internal change | patch | `v0.1.0` → `v0.1.1` |
+   | New feature or breaking API change | minor | `v0.1.1` → `v0.2.0` |
+
+   Check the latest tag with `git describe --tags --abbrev=0`.
+
+3. Tag the commit and push the branch and the tag:
+
+   ```sh
+   git tag -a v0.1.1 -m "v0.1.1"
+   git push origin main
+   git push origin v0.1.1
+   ```
+
+4. Update the projects that use it:
+
+   ```sh
+   go get github.com/fares1978/fkmongo@v0.1.1   # or @latest
+   go mod tidy
+   ```
+
+**Never move or delete a pushed tag.** The Go module proxy and checksum database
+record each version permanently, so a version whose tag was moved fails to
+install with a checksum mismatch. To fix a bad release, publish a new version instead.
+
 ## Migrating from the v1-driver version
 
 | Before | After |
