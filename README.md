@@ -3,7 +3,8 @@
 A thin generic repository layer over the official MongoDB Go driver (v2).
 
 ```sh
-go get github.com/fares1978/fkmongo
+go get github.com/fares1978/fkmongo@v0.1.0
+go mod tidy
 ```
 
 ## Usage
